@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Product Catlog</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="my-form">
+      <div>
+        <label for="ProductName">Product Name</label>
+        <input
+          type="text"
+          id="ProductName"
+          name="ProductName"
+          placeholder="ProductName"
+          required
+        /><br /><br />
+      </div>
+      <div>
+        <label for="ProductPrice">Product Price</label>
+        <input
+          type="number"
+          id="ProductPrice"
+          placeholder="Price"
+          name="ProductPrice"
+          required
+        /><br /><br />
+      </div>
+      <div>
+        <label for="ProductDescription">Product Description</label>
+        <input
+          type="textarea"
+          placeholder="Enter Description"
+          id="ProductDescription"
+          
+          name="ProductDescription"
+          required
+        /><br /><br />
+      </div>
+      <input type="submit" value="Submit" />
+    </form>
+    <div id="result"></div>
+    <script>
+      const form = document.getElementById("my-form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const data = localStorage.getItem("save");
+        const prevData = JSON.parse(data);
+
+        const output = {
+          id: prevData ? prevData?.length : 0,
+          ProductName: form.ProductName.value,
+          ProductPrice: form.ProductPrice.value,
+          ProductDescription: form.ProductDescription.value,
+        };
+
+        if (typeof Storage !== "undefined") {
+          // console.log("prev", prevData);
+          if (prevData) {
+            localStorage.setItem("save", JSON.stringify([...prevData, output]));
+          } else {
+            localStorage.setItem("save", JSON.stringify([output]));
+          }
+        }
+
+        form.reset();
+        // console.log(output);
+        const list = `<ul id="${output.id}">
+              <li>${output.ProductName}</li>
+              <li id="key">${output.id}</li>
+              <li>${output.ProductPrice}</li>
+              <li>${output.ProductDescription}</li>
+              <button id='key2' onclick="handleclick('${output.id}')">Delete</button>
+            </ul>`;
+
+        result.innerHTML += list;
+      });
+
+      function handleclick(id) {
+        console.log("e", id);
+
+        const storedData = localStorage.getItem("save");
+        // console.log(storedData);
+        const dataArray = storedData ? JSON.parse(storedData) : [];
+        // console.log(dataArray);
+        const filteredData = dataArray.filter((item) => item.id !== Number(id));
+
+        console.log(filteredData);
+
+        if (id) {
+          const result2 = document.getElementById(id);
+          console.log("result", result2);
+          result2.remove();
+          localStorage.setItem("save", JSON.stringify(filteredData));
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+// const result1 = document.getElementById("result"); // const data =
+localStorage.getItem("save"); // const saved = data ? JSON.parse(data) : null;
+// if (saved) { // const list1 = `
+<ul>
+  //
+  <li>${saved.ProductName}</li>
+  //
+  <li>${saved.ProductPrice}</li>
+  //
+  <li>${saved.ProductDescription}</li>
+  //
+</ul>
+`; // result1.innerHTML = list1; // } // const form =
+document.getElementById("my-form"); // form.addEventListener("submit", (e) => {
+// const output = { // ProductName: form.ProductName.value, // ProductPrice:
+form.ProductPrice.value, // ProductDescription: form.ProductDescription.value,
+// }; // if (typeof Storage !== "undefined") { // const str =
+localStorage.setItem("save", JSON.stringify(output)); // } // // const list = `
+<ul>
+  // //
+  <li>${output.ProductName}</li>
+  // //
+  <li>${output.ProductPrice}</li>
+  // //
+  <li>${output.ProductDescription}</li>
+  // //
+</ul>
+`; // // result.innerHTML = list; // });
