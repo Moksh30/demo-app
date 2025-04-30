@@ -3,108 +3,229 @@
   <head>
     <title>Product Catlog</title>
     <style>
-      body {
+      /* CSS */
+
+      .main {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        border: 1px solid #ffffff;
+        border-radius: 20px;
+        width: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .form {
+      .mh {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+      .main2 {
+        border-radius: 5px;
+        padding: 20px;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hl2 {
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+      }
+      .hl1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        background-color: rgba(255, 0, 0, 1);
+        color: #ffffff;
+        width: 180px;
+        height: 30px;
+      }
+      .main2 {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+      #key2 {
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+      .heart {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .heart1 {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+      }
+      .sl {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .hj {
+        display: flex;
+        text-transform: none;
+        margin-top: 10px;
+        padding: 10px;
+      }
+      .hl4 {
+        border: 1px solid #262626;
+        display: flex;
+        width: 100%;
+        background-color: red;
+        height: 100%;
+        min-height: 40px;
+        color: #ffffff;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
-    <form id="my-form">
-      <div>
-        <label for="ProductName">Product Name</label>
-        <input
-          type="text"
-          id="ProductName"
-          name="ProductName"
-          placeholder="ProductName"
-          required
-        /><br /><br />
-      </div>
-      <div>
-        <label for="ProductPrice">Product Price</label>
-        <input
-          type="number"
-          id="ProductPrice"
-          placeholder="Price"
-          name="ProductPrice"
-          required
-        /><br /><br />
-      </div>
-      <div>
-        <label for="ProductDescription">Product Description</label>
-        <input
-          type="textarea"
-          placeholder="Enter Description"
-          id="ProductDescription"
-          
-          name="ProductDescription"
-          required
-        /><br /><br />
-      </div>
-      <input type="submit" value="Submit" />
-    </form>
-    <div id="result"></div>
+    <!-- HTML-->
+    <div class="main">
+      <form id="my-form">
+        <div class="mh">
+          <div class="heart1">
+            <label class="hj" for="ProductName">Product Name:</label>
+            <label class="hj" for="ProductPrice">Product Price:</label>
+            <label class="hj" for="ProductDescription"
+              >Product Description:</label
+            >
+          </div>
+
+          <div class="heart">
+            <input
+              class="hj"
+              type="text"
+              id="ProductName"
+              name="ProductName"
+              placeholder="ProductName"
+              required
+            />
+
+            <input
+              class="hj"
+              type="number"
+              id="ProductPrice"
+              placeholder="Price"
+              name="ProductPrice"
+              required
+            />
+
+            <input
+              class="hj"
+              type="text"
+              placeholder="Enter Description"
+              id="ProductDescription"
+              name="ProductDescription"
+              required
+            />
+          </div>
+        </div>
+        <div class="sl">
+          <input class="hl4" type="submit" value="Submit" id="ds" disabled />
+        </div>
+      </form>
+    </div>
+    <div class="hl2">
+      <button class="hl1" onclick="handleclick2()">Clear All</button>
+    </div>
+    <div class="main2" id="result"></div>
+
+    <!-- Javascript Code -->
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("my-form");
+        var submitButton = document.getElementById("ds");
+
+        form.addEventListener("input", function () {
+          if (form.checkValidity()) {
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = "#4caf50";
+          } else {
+            submitButton.disabled = true;
+          }
+        });
+      });
       const form = document.getElementById("my-form");
+      const result = document.getElementById("result");
+      // const res = document.querySelectorAll("key");
+      const hmt = document.getElementsByClassName("hl2")[0];
+      let db = [];
+      hmt.style.display = "none";
+      // console.log(localStorage.length);
+
+      // console.log(hmt);
+      // setInterval(() => {
+      //   if (db.length == 0) {
+      //     console.log(1);
+      //
+      //   } else {
+      //     console.log(23);
+      //     hmt.style.display = "block";
+      //   }
+      // }, 10);
+
+      function handleclick2() {
+        const res = document.getElementsByClassName("h1");
+        db = [];
+        result.innerHTML = db;
+        if (db.length == 0) {
+          console.log(db.length == 0);
+          hmt.style.display = "none";
+        }
+      }
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const data = localStorage.getItem("save");
-        const prevData = JSON.parse(data);
-
         const output = {
-          id: prevData ? prevData?.length : 0,
+          id: db ? db?.length : 0,
           ProductName: form.ProductName.value,
           ProductPrice: form.ProductPrice.value,
           ProductDescription: form.ProductDescription.value,
         };
-
-        if (typeof Storage !== "undefined") {
-          // console.log("prev", prevData);
-          if (prevData) {
-            localStorage.setItem("save", JSON.stringify([...prevData, output]));
-          } else {
-            localStorage.setItem("save", JSON.stringify([output]));
-          }
+        if (db.length == 0) {
+          console.log(db.length == 0);
+          hmt.style.display = "block";
         }
-
-        form.reset();
-        // console.log(output);
-        const list = `<ul id="${output.id}">
-              <li>${output.ProductName}</li>
-              <li id="key">${output.id}</li>
-              <li>${output.ProductPrice}</li>
-              <li>${output.ProductDescription}</li>
+        const list = `<ul class="h1" id="${output.id}">
+              <li>Product Name: ${output.ProductName}</li>
+              <li> Product Price: ${output.ProductPrice}</li>
+              <li> Product Description: ${output.ProductDescription}</li>
               <button id='key2' onclick="handleclick('${output.id}')">Delete</button>
             </ul>`;
+        db.push(output);
+        console.log(db);
+        form.reset();
 
         result.innerHTML += list;
       });
 
       function handleclick(id) {
-        console.log("e", id);
-
-        const storedData = localStorage.getItem("save");
-        // console.log(storedData);
-        const dataArray = storedData ? JSON.parse(storedData) : [];
-        // console.log(dataArray);
-        const filteredData = dataArray.filter((item) => item.id !== Number(id));
-
-        console.log(filteredData);
+        const filteredData = db.filter((item) => item.id !== Number(id));
 
         if (id) {
           const result2 = document.getElementById(id);
           console.log("result", result2);
           result2.remove();
-          localStorage.setItem("save", JSON.stringify(filteredData));
         }
       }
     </script>
