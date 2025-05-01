@@ -43,14 +43,7 @@
         align-items: center;
         margin-top: 30px;
       }
-      .hl1 {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        background-color: rgba(255, 0, 0, 1);
-        color: #ffffff;
-        width: 180px;
-        height: 30px;
-      }
+
       .main2 {
         width: 100%;
         display: flex;
@@ -144,29 +137,16 @@
         </div>
       </form>
     </div>
-    <div class="hl2">
-      <button class="hl1" onclick="handleclick2()">Clear All</button>
-    </div>
+
     <div class="main2" id="result"></div>
 
     <!-- Javascript Code -->
     <script>
       const form = document.getElementById("my-form");
       const result = document.getElementById("result");
-      const hmt = document.getElementsByClassName("hl2")[0];
-      hmt.style.display = "none";
-      const db = [];
-      function handleclick2() {
-        const res = document.getElementsByClassName("h1");
-        db = [];
-        result.innerHTML = db;
-        if (db.length == 0) {
-          console.log(db.length == 0);
-          hmt.style.display = "none";
-        }
-      }
 
       form.addEventListener("submit", (e) => {
+        console.log(e);
         e.preventDefault();
 
         const output = {
@@ -175,30 +155,23 @@
           ProductPrice: form.ProductPrice.value,
           ProductDescription: form.ProductDescription.value,
         };
-        if (db.length == 0) {
-          console.log(db.length == 0);
-          hmt.style.display = "block";
-        }
-        const list = `<ul class="h1" id="${output.id}">
+        const red = document.createElement("div");
+        red.innerHTML = `<ul class="h1" id="${output.id}">
               <li>Product Name: ${output.ProductName}</li>
               <li> Product Price: ${output.ProductPrice}</li>
               <li> Product Description: ${output.ProductDescription}</li>
               <button id='key2' onclick="handleclick('${output.id}')">Delete</button>
             </ul>`;
-        db.push(output);
-        console.log(db);
+
         form.reset();
 
-        result.innerHTML += list;
+        result.appendChild(red);
       });
 
       function handleclick(id) {
-        const filteredData = db.filter((item) => item.id !== Number(id));
-
         if (id) {
           const result2 = document.getElementById(id);
-          console.log("result", result2);
-          result2.remove();
+          result.remove(id);
         }
       }
     </script>

@@ -46,3 +46,8 @@ localStorage.setItem("save", JSON.stringify(output)); // } // // const list = `
             const liElement = ulElement.children[j];
             liElement.remove();
           }
+
+
+
+
+
